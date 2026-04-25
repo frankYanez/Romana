@@ -8,15 +8,15 @@ import HeroCanvas from "./HeroCanvas";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const videoRef   = useRef<HTMLVideoElement>(null);
-  const eyebrowRef = useRef<HTMLDivElement>(null);
-  const t1Ref      = useRef<HTMLSpanElement>(null);
-  const t2Ref      = useRef<HTMLSpanElement>(null);
-  const t3Ref      = useRef<HTMLSpanElement>(null);
-  const sideRef    = useRef<HTMLDivElement>(null);
-  const scrollRef  = useRef<HTMLDivElement>(null);
-  const ctaRef     = useRef<HTMLAnchorElement>(null);
+  const sectionRef = useRef(null);
+  const videoRef   = useRef(null);
+  const eyebrowRef = useRef(null);
+  const t1Ref      = useRef(null);
+  const t2Ref      = useRef(null);
+  const t3Ref      = useRef(null);
+  const sideRef    = useRef(null);
+  const scrollRef  = useRef(null);
+  const ctaRef     = useRef(null);
 
   useEffect(() => {
     const inners = [t1Ref.current, t2Ref.current, t3Ref.current];
@@ -25,21 +25,21 @@ export default function Hero() {
     gsap.set(scrollRef.current, { opacity: 0 });
 
     const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-    tl.to(inners, { y: "0%", duration: 1.2, stagger: 0.12, delay: 0.3 })
-      .to(eyebrowRef.current, { opacity: 1, y: 0, duration: 0.9 }, "-=0.9")
+    tl.to(inners, { y: "0%", duration: 1.3, stagger: 0.13, delay: 0.4 })
+      .to(eyebrowRef.current, { opacity: 1, y: 0, duration: 1.0 }, "-=1.0")
       .to(sideRef.current,    { opacity: 1, y: 0, duration: 0.9 }, "-=0.7")
       .to(ctaRef.current,     { opacity: 1, y: 0, duration: 0.8 }, "-=0.5")
       .to(scrollRef.current,  { opacity: 1, duration: 0.7 }, "-=0.4");
 
     if (videoRef.current) {
       gsap.to(videoRef.current, {
-        yPercent: 18,
+        yPercent: 15,
         ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
           end: "bottom top",
-          scrub: 1.4,
+          scrub: 1.6,
         },
       });
     }
@@ -50,12 +50,12 @@ export default function Hero() {
       ref={sectionRef}
       id="hero"
       data-dark
-      className="relative h-svh min-h-[680px] overflow-hidden bg-ink flex items-end"
+      style={{ position: "relative", height: "100svh", minHeight: "680px", overflow: "hidden", background: "#0E0608", display: "flex", alignItems: "flex-end" }}
     >
       <video
         ref={videoRef}
         autoPlay loop muted playsInline
-        className="absolute inset-0 w-full h-full object-cover object-top scale-110 brightness-[.48] saturate-75 contrast-105"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 20%", transform: "scale(1.12)", filter: "brightness(.45) saturate(.8) contrast(1.05)" }}
       >
         <source src="https://videos.pexels.com/video-files/6670082/6670082-uhd_2560_1440_25fps.mp4" type="video/mp4" />
       </video>
@@ -63,61 +63,71 @@ export default function Hero() {
       <img
         src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=1600&q=85&auto=format&fit=crop"
         alt=""
-        aria-hidden
-        className="absolute inset-0 w-full h-full object-cover object-top brightness-50 saturate-75 -z-10"
+        aria-hidden="true"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "brightness(.45)", zIndex: -1 }}
       />
 
-      <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-transparent to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-r from-ink/30 to-transparent" />
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(14,6,8,1) 0%, rgba(14,6,8,0.5) 35%, rgba(14,6,8,0.1) 65%, transparent 100%)", zIndex: 1 }} />
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(14,6,8,0.6) 0%, rgba(14,6,8,0.2) 50%, transparent 100%)", zIndex: 1 }} />
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(61,11,26,0.3) 0%, transparent 40%)", zIndex: 1 }} />
 
       <HeroCanvas />
 
-      <div className="absolute inset-y-0 hidden lg:block" style={{ left: "calc(3.5rem + 185px)", width: 1, background: "linear-gradient(to bottom, transparent, rgba(244,238,228,.07) 30%, rgba(244,238,228,.07) 70%, transparent)" }} />
-      <div className="absolute inset-y-0 hidden lg:block" style={{ right: "calc(3.5rem + 185px)", width: 1, background: "linear-gradient(to bottom, transparent, rgba(244,238,228,.07) 30%, rgba(244,238,228,.07) 70%, transparent)" }} />
-
-      <div className="relative z-10 w-full px-6 md:px-14 pb-16 md:pb-20 grid grid-cols-1 md:grid-cols-[1fr_auto] items-end gap-6">
+      <div style={{ position: "relative", zIndex: 10, width: "100%", padding: "0 1.5rem 4.5rem", display: "grid", gridTemplateColumns: "1fr auto", alignItems: "flex-end", gap: "1.5rem" }} className="md:px-14 md:pb-20">
         <div>
-          <div ref={eyebrowRef} className="flex items-center gap-4 mb-5 opacity-0">
-            <span className="block w-10 h-px bg-nude" />
-            <span className="font-sans text-[.62rem] font-light tracking-[.42em] uppercase text-nude2/75">
+          <div ref={eyebrowRef} style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.25rem", opacity: 0 }}>
+            <span style={{ display: "block", width: 40, height: 1, background: "#C9A98A" }} />
+            <span style={{ fontFamily: "var(--font-jost)", fontSize: ".62rem", fontWeight: 300, letterSpacing: ".42em", textTransform: "uppercase", color: "rgba(226,203,175,.75)" }}>
               Pilates Mat &amp; Reformer
             </span>
           </div>
 
-          <h1 className="font-display font-black leading-[.88] tracking-[-0.03em] text-crema"
-              style={{ fontSize: "clamp(4.5rem, 11vw, 10.5rem)" }}>
-            <span className="rl"><span ref={t1Ref} className="ri">Romana</span></span>
-            <span className="rl"><span ref={t2Ref} className="ri italic text-nude2">Club</span></span>
-            <span className="rl mt-1">
-              <span ref={t3Ref} className="ri"
-                style={{ WebkitTextStroke: "1px rgba(244,238,228,.35)", color: "transparent" }}>
+          <h1 style={{ fontFamily: "var(--font-playfair)", fontWeight: 900, lineHeight: .88, letterSpacing: "-.03em", color: "#F4EEE4", fontSize: "clamp(4.5rem,11vw,10.5rem)", margin: 0 }}>
+            <span style={{ overflow: "hidden", display: "block" }}>
+              <span ref={t1Ref} style={{ display: "block", transform: "translateY(108%)" }}>Romana</span>
+            </span>
+            <span style={{ overflow: "hidden", display: "block" }}>
+              <span ref={t2Ref} style={{ display: "block", transform: "translateY(108%)", fontStyle: "italic", color: "#E2CBAF" }}>Club</span>
+            </span>
+            <span style={{ overflow: "hidden", display: "block", marginTop: 4 }}>
+              <span ref={t3Ref} style={{ display: "block", transform: "translateY(108%)", WebkitTextStroke: "1px rgba(244,238,228,.3)", color: "transparent" }}>
                 Pilates
               </span>
             </span>
           </h1>
         </div>
 
-        <div ref={sideRef} className="flex flex-col items-start md:items-end gap-5 opacity-0 pb-1">
-          <p className="font-serif text-[.9rem] italic text-nude2/70 tracking-wide hidden md:block [writing-mode:vertical-rl] rotate-180">
+        <div ref={sideRef} style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "1.25rem", opacity: 0, paddingBottom: 4 }}>
+          <p style={{ fontFamily: "var(--font-baskerville)", fontSize: ".9rem", fontStyle: "italic", color: "rgba(226,203,175,.65)", writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: ".12em" }} className="hidden md:block">
             El movimiento como ritual
           </p>
           <a
             ref={ctaRef}
             href="#cta"
-            className="opacity-0 inline-flex items-center gap-4 font-sans text-[.65rem] font-light tracking-[.28em] uppercase text-ink bg-crema px-8 py-4 hover:bg-burdeos hover:text-crema hover:gap-6 transition-all duration-400 whitespace-nowrap"
+            style={{ opacity: 0, display: "inline-flex", alignItems: "center", gap: "1rem", fontFamily: "var(--font-jost)", fontSize: ".65rem", fontWeight: 300, letterSpacing: ".28em", textTransform: "uppercase", color: "#0E0608", background: "#F4EEE4", padding: "1rem 2rem", textDecoration: "none", transition: "all .4s", whiteSpace: "nowrap" }}
+            onMouseEnter={e => { const el = e.currentTarget; el.style.background="#3D0B1A"; el.style.color="#F4EEE4"; }}
+            onMouseLeave={e => { const el = e.currentTarget; el.style.background="#F4EEE4"; el.style.color="#0E0608"; }}
           >
             Reservar
-            <span className="block w-5 h-px bg-current" />
+            <span style={{ display: "block", width: 20, height: 1, background: "currentColor" }} />
           </a>
         </div>
       </div>
 
-      <div ref={scrollRef} className="absolute left-6 md:left-14 bottom-9 z-10 flex flex-col items-center gap-2.5 opacity-0">
-        <div className="w-px h-12 bg-gradient-to-b from-nude to-transparent" />
-        <span className="font-sans text-[.52rem] tracking-[.38em] uppercase text-crema/35 [writing-mode:vertical-rl]">
+      <div ref={scrollRef} style={{ position: "absolute", left: "1.5rem", bottom: "2.25rem", zIndex: 10, display: "flex", flexDirection: "column", alignItems: "center", gap: 10, opacity: 0 }} className="md:left-14">
+        <div style={{ width: 1, height: 48, background: "linear-gradient(to bottom, #C9A98A, transparent)", animation: "scrollDown 2.2s ease-in-out infinite" }} />
+        <span style={{ fontFamily: "var(--font-jost)", fontSize: ".52rem", letterSpacing: ".38em", textTransform: "uppercase", color: "rgba(244,238,228,.3)", writingMode: "vertical-rl" }}>
           Scroll
         </span>
       </div>
+
+      <style>{`
+        @keyframes scrollDown {
+          0%   { transform: scaleY(0) translateY(-100%); opacity: 0; }
+          30%  { opacity: 1; }
+          100% { transform: scaleY(1) translateY(0); opacity: 0; }
+        }
+      `}</style>
     </section>
   );
 }
