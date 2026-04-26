@@ -57,7 +57,7 @@ export default function Hero() {
         autoPlay loop muted playsInline
         style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 20%", transform: "scale(1.12)", filter: "brightness(.45) saturate(.8) contrast(1.05)" }}
       >
-        <source src="https://videos.pexels.com/video-files/6670082/6670082-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+        <source src="https://videos.pexels.com/video-files/6670082/6670082-hd_1920_1080_25fps.mp4" type="video/mp4" />
       </video>
 
       <img
